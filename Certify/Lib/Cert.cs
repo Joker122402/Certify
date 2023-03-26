@@ -86,7 +86,12 @@ namespace Certify
                 ? X509CertificateEnrollmentContext.ContextMachine
                 : X509CertificateEnrollmentContext.ContextUser;
 
-            objPkcs10.InitializeFromPrivateKey(context, privateKey, templateName);
+            // objPkcs10.InitializeFromPrivateKey(context, privateKey, templateName);
+            objPkcs10.InitializeFromPrivateKey(context, privateKey, String.Empty);
+            
+            CX509ExtensionTemplateName objExtTN = new CX509ExtensionTemplateName();
+            objExtTN.InitializeEncode(templateName);
+            objPkcs10.X509Extensions.Add((CX509Extension)objExtTN);
 
             var objDN = new CX500DistinguishedName();
 
